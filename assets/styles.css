@@ -1,0 +1,9 @@
+main {
+    display: flex;
+}
+#sidebar {
+    flex:1;
+}
+#weatherInfo {
+    flex:3;
+}

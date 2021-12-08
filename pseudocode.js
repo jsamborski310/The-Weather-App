@@ -2,7 +2,11 @@
   // At first, only the form appears until the user enters a city name. So everything will need to be done onclick. 
 
   //////////////////////////////
-
+  //--------->
+  // TO DO
+  // Add jQuery extension to pre-fill text
+  //--------->
+  //////////////////////////////
 
 
 // Button function to get the city to then pass through to the geoData function. 
