@@ -2,14 +2,18 @@ var searchForm = document.getElementById("search-form");
 var searchInput = document.getElementById("search-input");
 var searchButton = document.querySelector("button");
 var weatherOverview = document.getElementById("weather-overview");
+var weatherForecast = document.getElementById("weather-forecast");
+
+var citySearched;
+var APIKey = "33e3e07579a24a43082a28f667d64818";
 
 var formSubmit = function (event) {
     event.preventDefault();
   
-    var citySearched = searchInput.value.trim();
+    citySearched = searchInput.value.trim();
   
     if (citySearched) {
-     // getCities(citySearched);
+    getCities(citySearched);
   
       weatherOverview.textContent = citySearched;
       
@@ -21,28 +25,71 @@ var formSubmit = function (event) {
     }
   };
   
-//  function getCities () {
 
-//  }
 
 /////////////////////////////
 
-function geoData(name) {
+var getCities = function (name) {
+    console.log("Hello there!");
 
-    var url = 'http://api.openweathermap.org/geo/1.0/direct?q=' + name + '&limit=5&appid=33e3e07579a24a43082a28f667d64818'
+    var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&appid=' + APIKey;
+   
 
-    fetch( url )
+    fetch( cityURL )
         .then(function(response) {
             return response.json(); 
+
         })
         .then( function (data) {
-            //console.log(data);
-            oneCall(/*Provide lat and lon here*/); //Call oneCall function here. 
-        });
 
+            name = citySearched;
+            weatherForecast.textContent = name;
+           
+            lon = data.coord.lon;
+            lat = data.coord.lat;
+           
+
+            console.log("Name: " + name);
+            console.log("City Searched: " + citySearched);
+            console.log("latitude:" + name.lat);
+            console.log("latitude 3:" + data.lat);
+            // console.log("Data: " + data);
+
+
+            getWeatherData(); 
+        });
+        
 }
 
 
+
+////////////////////////
+
+var getWeatherData = function (lat, lon) {
+    console.log("Hi there!");
+
+    var weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
+
+
+    fetch( weatherURL )
+        .then(function(response) {
+            return response.json(); 
+
+        })
+        .then( function (data) {
+
+        
+            // lat = ['coord']['lat'];
+            // lon = ['coord']['lon'];
+
+            weatherForecast.textContent = lat, lon;
+           
+            console.log("lat: " + lat);
+            console.log("lat: " + lon);
+            console.log("Data 2: " + data);
+
+        });
+}
 
 
 
