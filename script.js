@@ -32,7 +32,7 @@ var formSubmit = function (event) {
 var getCities = function (name) {
     console.log("Hello there!");
 
-    var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&appid=' + APIKey;
+    var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&units=imperial&appid=' + APIKey;
    
 
     fetch( cityURL )
@@ -42,15 +42,18 @@ var getCities = function (name) {
         })
         .then( function (data) {
 
+            //Add if/else statement here. If name=citySearched, the do this, otherwise, print an error message.
+
             name = citySearched;
+
+
             lon = data.coord.lon;
             lat = data.coord.lat;
 
 
             var weatherOverviewContent = `
-            <p>Weather Info: ${data.main.temp}</p>
-            <p>Weather Info: ${data.main.temp}</p>
-            <p>Weather Info: ${data.main.temp}</p>
+            <h3>${name}</h3>
+    
             `;
 
             weatherOverview.innerHTML = weatherOverviewContent;
@@ -69,9 +72,9 @@ var getCities = function (name) {
 ////////////////////////
 
 var getWeatherData = function (lat, lon) {
-    console.log("Hi there!");
+   
 
-    var weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey;
+    var weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + APIKey;
 
 
     fetch( weatherURL )
@@ -80,10 +83,18 @@ var getWeatherData = function (lat, lon) {
 
         })
         .then( function (data) {
+
+            var weatherOverviewContentTwo = `
+           
+            <p>Temperature: ${data.current.temp}°F</p>
+            <p>Wind: ${data.current.wind_speed} MPH</p>
+            <p>Humidity: ${data.current.humidity}%</p>
+            <p>UV Index: ${data.current.uvi}</p>
+            `;
+
+            weatherForecast.innerHTML = weatherOverviewContentTwo;
    
-            // console.log("lat: " + lat);
-            // console.log("lat: " + lon);
-            // console.log("Data 2: " + data);
+          
 
         });
 }
@@ -94,10 +105,6 @@ var getWeatherData = function (lat, lon) {
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
 
-//////////////////////////////
-//Testing
 
-// weatherForecast.textContent = name;
-           
 
 
