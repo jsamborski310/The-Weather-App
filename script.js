@@ -15,7 +15,7 @@ var formSubmit = function (event) {
     if (citySearched) {
     getCities(citySearched);
   
-      weatherOverview.textContent = citySearched;
+     
       
       //Clearing the input.
       searchInput.value = '';
@@ -43,20 +43,23 @@ var getCities = function (name) {
         .then( function (data) {
 
             name = citySearched;
-            weatherForecast.textContent = name;
-           
             lon = data.coord.lon;
             lat = data.coord.lat;
+
+
+            var weatherOverviewContent = `
+            <p>Weather Info: ${data.main.temp}</p>
+            <p>Weather Info: ${data.main.temp}</p>
+            <p>Weather Info: ${data.main.temp}</p>
+            `;
+
+            weatherOverview.innerHTML = weatherOverviewContent;
            
 
-            console.log("Name: " + name);
-            console.log("City Searched: " + citySearched);
-            console.log("latitude:" + name.lat);
-            console.log("latitude 3:" + data.lat);
-            // console.log("Data: " + data);
+          
 
 
-            getWeatherData(); 
+            getWeatherData(lat, lon); 
         });
         
 }
@@ -77,16 +80,10 @@ var getWeatherData = function (lat, lon) {
 
         })
         .then( function (data) {
-
-        
-            // lat = ['coord']['lat'];
-            // lon = ['coord']['lon'];
-
-            weatherForecast.textContent = lat, lon;
-           
-            console.log("lat: " + lat);
-            console.log("lat: " + lon);
-            console.log("Data 2: " + data);
+   
+            // console.log("lat: " + lat);
+            // console.log("lat: " + lon);
+            // console.log("Data 2: " + data);
 
         });
 }
@@ -97,5 +94,10 @@ var getWeatherData = function (lat, lon) {
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
 
+//////////////////////////////
+//Testing
+
+// weatherForecast.textContent = name;
+           
 
 
