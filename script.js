@@ -2,6 +2,8 @@ var searchForm = document.getElementById("search-form");
 var searchInput = document.getElementById("search-input");
 var searchButton = document.querySelector("button");
 var weatherOverview = document.getElementById("weather-overview");
+var weatherOverviewHeader = document.getElementById("weather-overview-header");
+var weatherOverviewInfo = document.getElementById("weather-overview-info");
 var weatherForecast = document.getElementById("weather-forecast");
 
 var citySearched;
@@ -56,7 +58,7 @@ var getCities = function (name) {
     
             `;
 
-            weatherOverview.innerHTML = weatherOverviewContent;
+            weatherOverviewHeader.innerHTML = weatherOverviewContent;
            
 
 
@@ -83,7 +85,7 @@ var getWeatherData = function (lat, lon) {
         })
         .then( function (data) {
 
-            var weatherOverviewContentTwo = `
+            var weatherOverviewContent = `
            
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
@@ -91,21 +93,28 @@ var getWeatherData = function (lat, lon) {
             <p>UV Index: ${data.current.uvi}</p>
             `;
 
-            weatherForecast.innerHTML = weatherOverviewContentTwo;
+            weatherOverviewInfo.innerHTML = weatherOverviewContent;
    
            ////////////////////
 
          for (var i = 0; i < data.daily.length; i++) {
+            if (i === 5) {
+                break;
+              }
+              console.log("Humidity: " + data.daily[i].humidity);
+            }
 
             //Do variable = data.daily++
             //Then create the card with template literal. 
-            
-             console.log("Humidity: " + data.daily[i].humidity);
+            //How do I stop it at 5?
+            //Put data.daily.length into a variable, then set it to i?
+            // if (i === 5) {break;}
+             
          }
 
-        });
-}
+        );
 
+        }
 
 
 //////////////////////////////
@@ -113,5 +122,13 @@ var getWeatherData = function (lat, lon) {
 searchForm.addEventListener('submit', formSubmit);
 
 
-
-
+///////////////////
+//Testing
+// var text = "";
+// var i;
+// for (i = 0; i < 5; i++) {
+//   if (i === 3) {
+//     break;
+//   }
+//   text += "The number is " + i + "<br>";
+// 
