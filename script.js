@@ -74,6 +74,7 @@ var getCities = function (name) {
 
 var weatherForecastCards = "";
 
+
 var getWeatherData = function (lat, lon) {
    
 
@@ -87,6 +88,8 @@ var getWeatherData = function (lat, lon) {
         })
         .then( function (data) {
 
+
+           
             var weatherOverviewContent = `
            
             <p>Temperature: ${data.current.temp}°F</p>
@@ -106,29 +109,27 @@ var getWeatherData = function (lat, lon) {
                 break;
               }
 
-            
+            //   var day = new Date(data.daily[i].dt * 1000);
+
+              var day = moment(data.daily[i].dt * 1000).format('L')
+              
 
               weatherForecastCards += `
            
               <div class="forecast-cards">
-              <p>Date: ${data.daily[i].dt}°F</p>
+              <p>Date: ${day}</p>
               <p>Temperature: ${data.daily[i].temp.day}°F</p>
               <p>Wind: ${data.daily[i].wind_speed} MPH</p>
               <p>Humidity: ${data.daily[i].humidity}%</p>
               </div>
               `;
   
-              
+        
 
               weatherForecast.innerHTML = weatherForecastCards;
 
             }
 
-            //Do variable = data.daily++
-            //Then create the card with template literal. 
-            //How do I stop it at 5?
-            //Put data.daily.length into a variable, then set it to i?
-            // if (i === 5) {break;}
              
          }
 
@@ -143,12 +144,3 @@ searchForm.addEventListener('submit', formSubmit);
 
 
 ///////////////////
-//Testing
-// var text = "";
-// var i;
-// for (i = 0; i < 5; i++) {
-//   if (i === 3) {
-//     break;
-//   }
-//   text += "The number is " + i + "<br>";
-// 
