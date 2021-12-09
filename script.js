@@ -72,6 +72,8 @@ var getCities = function (name) {
 
 ////////////////////////
 
+var weatherForecastCards = "";
+
 var getWeatherData = function (lat, lon) {
    
 
@@ -98,10 +100,28 @@ var getWeatherData = function (lat, lon) {
            ////////////////////
 
          for (var i = 0; i < data.daily.length; i++) {
+
+            
             if (i === 5) {
                 break;
               }
-              console.log("Humidity: " + data.daily[i].humidity);
+
+            
+
+              weatherForecastCards += `
+           
+              <div class="forecast-cards">
+              <p>Date: ${data.daily[i].dt}°F</p>
+              <p>Temperature: ${data.daily[i].temp.day}°F</p>
+              <p>Wind: ${data.daily[i].wind_speed} MPH</p>
+              <p>Humidity: ${data.daily[i].humidity}%</p>
+              </div>
+              `;
+  
+              
+
+              weatherForecast.innerHTML = weatherForecastCards;
+
             }
 
             //Do variable = data.daily++

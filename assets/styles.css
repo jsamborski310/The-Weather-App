@@ -7,3 +7,11 @@ main {
 #weatherInfo {
     flex:3;
 }
+.forecast-cards {
+    background: pink;
+    padding: 20px;
+    flex: 20%;
+}
+#weather-forecast {
+    display:flex;
+}
