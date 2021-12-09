@@ -59,7 +59,6 @@ var getCities = function (name) {
             weatherOverview.innerHTML = weatherOverviewContent;
            
 
-          
 
 
             getWeatherData(lat, lon); 
@@ -94,7 +93,15 @@ var getWeatherData = function (lat, lon) {
 
             weatherForecast.innerHTML = weatherOverviewContentTwo;
    
-          
+           ////////////////////
+
+         for (var i = 0; i < data.daily.length; i++) {
+
+            //Do variable = data.daily++
+            //Then create the card with template literal. 
+            
+             console.log("Humidity: " + data.daily[i].humidity);
+         }
 
         });
 }
