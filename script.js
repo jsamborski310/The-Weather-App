@@ -32,7 +32,7 @@ var formSubmit = function (event) {
     //Clearing the input.
     searchInput.value = '';
 
-    formSubmitButton();
+    formSubmitButton(event);
 
 
     } else {
@@ -41,9 +41,11 @@ var formSubmit = function (event) {
 }
 /////////////////////////////
 
+
  // Displays Stored Entries --------------------------
  var formSubmitButton = function (event) {
-    event.preventDefault();
+
+    // event.preventDefault();
 
  console.log("event: " + event);
 
@@ -60,6 +62,7 @@ var formSubmit = function (event) {
                 `;
         
                 const cityName = event.target.getAttribute("data-cities");
+               
 
                 console.log("city name: " + cityName);
                 
