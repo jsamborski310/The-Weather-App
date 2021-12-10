@@ -42,7 +42,10 @@ var formSubmit = function (event) {
 /////////////////////////////
 
  // Displays Stored Entries --------------------------
- var formSubmitButton = function () {
+ var formSubmitButton = function (event) {
+    event.preventDefault();
+
+ console.log("event: " + event);
 
     // Getting Storage
     var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked"));
@@ -51,17 +54,23 @@ var formSubmit = function (event) {
     
             for( var i = 0; i < storedCitySearched.length; i++) {
 
+               
                 storedCityName = `
-                <button id="searchedButton" data-cities=${i}>${citySearched}</button>
+                <button id="searchedButton" data-cities=${citySearched}>${citySearched}</button>
                 `;
+        
+                const cityName = event.target.getAttribute("data-cities");
+
+                console.log("city name: " + cityName);
                 
-                storedCities.innerHTML += storedCityName;
+                getCities(cityName);
                 
-                getCities(searched);
                 
             }
 
-          
+            storedCities.innerHTML += storedCityName;
+                
+            
 
             // storedCityName =''; 
             
@@ -178,4 +187,4 @@ function storeCitySearched(citySearched) {
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
 
-searched.addEventListener('click', formSubmitButton);
+storedCities.addEventListener('click', formSubmitButton);
