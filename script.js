@@ -6,6 +6,8 @@ var weatherOverviewHeader = document.getElementById("weather-overview-header");
 var weatherOverviewInfo = document.getElementById("weather-overview-info");
 var weatherForecast = document.getElementById("weather-forecast");
 var storedCities = document.getElementById("storedCities");
+var searched = document.getElementById("searchedButton");
+
 
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
@@ -47,21 +49,25 @@ var formSubmit = function (event) {
 
     if(storedCitySearched) {
     
-        //     if (storedCitySearched.length <= 5) {
+            for( var i = 0; i < storedCitySearched.length; i++) {
 
                 storedCityName = `
-                <button id="searched">${citySearched}</button>
+                <button id="searchedButton" data-cities=${i}>${citySearched}</button>
                 `;
                 
                 storedCities.innerHTML += storedCityName;
-
+                
+                getCities(searched);
                 
             }
 
-            storedCityName =''; 
+          
+
+            // storedCityName =''; 
+            
     }
             
-// }
+}
 
 /////////////////////////////
 // Getting City Data
@@ -172,4 +178,4 @@ function storeCitySearched(citySearched) {
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
 
-storedCities.addEventListener('click', formSubmitButton);
+searched.addEventListener('click', formSubmitButton);
