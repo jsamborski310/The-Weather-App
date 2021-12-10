@@ -20,17 +20,48 @@ var formSubmit = function (event) {
   
     citySearched = searchInput.value.trim();
   
+    //Setting it to store in a later function.
+    storeCitySearched(citySearched);
+
+    
     if (citySearched) {
     getCities(citySearched);
     
     //Clearing the input.
     searchInput.value = '';
 
+    formSubmitButton();
+
+
     } else {
     //   alert('Please enter a city name.');
     }
 }
-  
+/////////////////////////////
+
+ // Displays Stored Entries --------------------------
+ var formSubmitButton = function () {
+
+    // Getting Storage
+    var storedCitySearched = localStorage.getItem("city-clicked");
+
+    if(storedCitySearched) {
+    
+        //     if (storedCitySearched.length <= 5) {
+
+                storedCityName = `
+                <button id="searched">${citySearched}</button>
+                `;
+                
+                storedCities.innerHTML += storedCityName;
+
+                
+            }
+
+            storedCityName =''; 
+    }
+            
+// }
 
 /////////////////////////////
 // Getting City Data
@@ -57,26 +88,17 @@ var getCities = function (name) {
             `;
 
             weatherOverviewHeader.innerHTML = weatherOverviewContent;
-           
-
-  // Displays Stored Entries --------------------------
- 
-            // Getting stored entries to display.
-            var storedCitySearched = localStorage.getItem("city-clicked");
-
-            console.log("stored city: " + storedCitySearched);
-            // If user enters text, it's saved to the corresponding row. 
-            if(storedCitySearched) {
-                
-                // storedCities.innerHTML = storeCitySearched;
-            };
-            ////////////////////////
-
+                   
             getWeatherData(lat, lon); 
         
         });
+            
+                
+            ////////////////////////          
+        
+};
 
-}
+
 
 ////////////////////////
 
@@ -134,15 +156,20 @@ var getWeatherData = function (lat, lon) {
 //////////////////////////
 // Saving Cities Searched
 
-function storeCitySearched(event) {
- 
-    event.preventDefault();
 
-    localStorage.setItem("city-clicked", citySearched);
+var citiesArray = [];
+
+function storeCitySearched(citySearched) {
+ 
+    citiesArray.push(citySearched);
+
+    localStorage.setItem("city-clicked", citiesArray);
            
 };
+
 
 //////////////////////////////
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
-// storedCities.addEventListener('click', formSubmit);
+
+storedCities.addEventListener('click', formSubmitButton);
