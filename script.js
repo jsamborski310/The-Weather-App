@@ -14,6 +14,8 @@ var APIKey = "33e3e07579a24a43082a28f667d64818";
 
 var weatherForecastCards = '';
 
+var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked")) || [];
+
 //////////////////////////////////////////
 // City Search Form
 
@@ -32,6 +34,7 @@ var formSubmit = function (event) {
     //Clearing the input.
     searchInput.value = '';
 
+ 
     formSubmitButton(event);
 
 
@@ -45,48 +48,41 @@ var formSubmit = function (event) {
  // Displays Stored Entries --------------------------
  var formSubmitButton = function (event) {
 
-    // event.preventDefault();
-
  console.log("event: " + event);
-
-    // Getting Storage
-    var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked"));
 
     if(storedCitySearched) {
     
             for( var i = 0; i < storedCitySearched.length; i++) {
 
-               
                 storedCityName = `
-                <button id="searchedButton" data-cities=${citySearched}>${citySearched}</button>
+                <button id="searchedButton" data-cities="${citySearched}">${citySearched}</button>
                 `;
         
-                const cityName = event.target.getAttribute("data-cities");
+                event.target.getAttribute("data-cities");
                
-
-                console.log("city name: " + cityName);
+                // console.log("city name: " + cityName);
+                console.log("city name: " + citySearched);
                 
-                getCities(cityName);
-                
-                
+              
             }
 
-            storedCities.innerHTML += storedCityName;
-                
-            
-
-            // storedCityName =''; 
+            getCities(citySearched);
+            storedCities.innerHTML += storedCityName;           
             
     }
-            
+          
+           
 }
+
 
 /////////////////////////////
 // Getting City Data
 
-var getCities = function (name) {
+
+
+var getCities = function (citySearched) {
    
-    var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&units=imperial&appid=' + APIKey;
+    var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + citySearched + '&units=imperial&appid=' + APIKey;
    
     fetch( cityURL )
         .then(function(response) {
@@ -96,13 +92,13 @@ var getCities = function (name) {
 
             //Add if/else statement here. If name=citySearched, the do this, otherwise, print an error message.
 
-            name = citySearched;
+            // name = citySearched;
 
             lon = data.coord.lon;
             lat = data.coord.lat;
 
             var weatherOverviewContent = `
-            <h3>${name}</h3>
+            <h3>${citySearched}</h3>
             `;
 
             weatherOverviewHeader.innerHTML = weatherOverviewContent;
@@ -175,13 +171,12 @@ var getWeatherData = function (lat, lon) {
 // Saving Cities Searched
 
 
-var citiesArray = [];
 
 function storeCitySearched(citySearched) {
  
-    citiesArray.push(citySearched);
+    storedCitySearched.push(citySearched);
 
-    localStorage.setItem("city-clicked", JSON.stringify(citiesArray));
+    localStorage.setItem("city-clicked", JSON.stringify(storedCitySearched));
            
 };
 
