@@ -36,7 +36,7 @@ var formSubmit = function (event) {
     searchInput.value = '';
 
  
-
+    formSubmitButton(event);
 
     } else {
     //   alert('Please enter a city name.');
