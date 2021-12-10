@@ -5,9 +5,15 @@ var weatherOverview = document.getElementById("weather-overview");
 var weatherOverviewHeader = document.getElementById("weather-overview-header");
 var weatherOverviewInfo = document.getElementById("weather-overview-info");
 var weatherForecast = document.getElementById("weather-forecast");
+var storedCities = document.getElementById("storedCities");
 
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
+
+var weatherForecastCards = '';
+
+//////////////////////////////////////////
+// City Search Form
 
 var formSubmit = function (event) {
     event.preventDefault();
@@ -16,31 +22,26 @@ var formSubmit = function (event) {
   
     if (citySearched) {
     getCities(citySearched);
-  
-     
-      
-      //Clearing the input.
-      searchInput.value = '';
+    
+    //Clearing the input.
+    searchInput.value = '';
 
     } else {
     //   alert('Please enter a city name.');
     }
-  };
+}
   
 
-
 /////////////////////////////
+// Getting City Data
 
 var getCities = function (name) {
-    console.log("Hello there!");
-
+   
     var cityURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&units=imperial&appid=' + APIKey;
    
-
     fetch( cityURL )
         .then(function(response) {
             return response.json(); 
-
         })
         .then( function (data) {
 
@@ -48,36 +49,40 @@ var getCities = function (name) {
 
             name = citySearched;
 
-
             lon = data.coord.lon;
             lat = data.coord.lat;
 
-
             var weatherOverviewContent = `
             <h3>${name}</h3>
-    
             `;
 
             weatherOverviewHeader.innerHTML = weatherOverviewContent;
            
 
+  // Displays Stored Entries --------------------------
+ 
+            // Getting stored entries to display.
+            var storedCitySearched = localStorage.getItem("city-clicked");
 
+            console.log("stored city: " + storedCitySearched);
+            // If user enters text, it's saved to the corresponding row. 
+            if(storedCitySearched) {
+                
+                // storedCities.innerHTML = storeCitySearched;
+            };
+            ////////////////////////
 
             getWeatherData(lat, lon); 
-        });
         
+        });
+
 }
 
-
-
 ////////////////////////
-
-var weatherForecastCards = "";
 
 
 var getWeatherData = function (lat, lon) {
    
-
     var weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + APIKey;
 
 
@@ -88,8 +93,6 @@ var getWeatherData = function (lat, lon) {
         })
         .then( function (data) {
 
-
-           
             var weatherOverviewContent = `
            
             <p>Temperature: ${data.current.temp}°F</p>
@@ -102,20 +105,15 @@ var getWeatherData = function (lat, lon) {
    
            ////////////////////
 
-         for (var i = 0; i < data.daily.length; i++) {
-
+            for (var i = 0; i < data.daily.length; i++) {
             
             if (i === 5) {
                 break;
               }
 
-            //   var day = new Date(data.daily[i].dt * 1000);
-
               var day = moment(data.daily[i].dt * 1000).format('L')
               
-
               weatherForecastCards += `
-           
               <div class="forecast-cards">
               <p>Date: ${day}</p>
               <p>Temperature: ${data.daily[i].temp.day}°F</p>
@@ -124,23 +122,27 @@ var getWeatherData = function (lat, lon) {
               </div>
               `;
   
-        
-
               weatherForecast.innerHTML = weatherForecastCards;
 
             }
-
+            weatherForecastCards ='';
              
-         }
+        });
 
-        );
+}
 
-        }
+//////////////////////////
+// Saving Cities Searched
 
+function storeCitySearched(event) {
+ 
+    event.preventDefault();
+
+    localStorage.setItem("city-clicked", citySearched);
+           
+};
 
 //////////////////////////////
 // Form Submission
 searchForm.addEventListener('submit', formSubmit);
-
-
-///////////////////
+// storedCities.addEventListener('click', formSubmit);
