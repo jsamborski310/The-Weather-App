@@ -45,7 +45,7 @@ var formSubmit = function (event) {
  var formSubmitButton = function () {
 
     // Getting Storage
-    var storedCitySearched = localStorage.getItem("city-clicked");
+    var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked"));
 
     if(storedCitySearched) {
     
@@ -169,7 +169,7 @@ function storeCitySearched(citySearched) {
  
     citiesArray.push(citySearched);
 
-    localStorage.setItem("city-clicked", citiesArray);
+    localStorage.setItem("city-clicked", JSON.stringify(citiesArray));
            
 };
 
