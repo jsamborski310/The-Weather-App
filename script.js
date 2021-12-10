@@ -67,7 +67,9 @@ var formSubmit = function (event) {
             }
 
             getCities(citySearched);
-            storedCities.innerHTML += storedCityName;           
+            storedCities.innerHTML += storedCityName;    
+                     
+
             
     }
           
@@ -186,3 +188,5 @@ function storeCitySearched(citySearched) {
 searchForm.addEventListener('submit', formSubmit);
 
 storedCities.addEventListener('click', formSubmitButton);
+
+
