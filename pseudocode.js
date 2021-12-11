@@ -53,6 +53,7 @@ var formSubmitButton = function (event) {
       
     for (var i = 0; i < storedCitySearched.length; i++) {
       const storedCityName = document.createElement("button");
+      storedCityName.setAttribute("class", "city-buttons");
       storedCityName.textContent = storedCitySearched[i];
       storedCityName.addEventListener("click", function () {
 
@@ -95,8 +96,12 @@ var getCities = function (citySearched) {
       lon = data.coord.lon;
       lat = data.coord.lat;
 
+     
+
       var weatherOverviewContent = `
+            <div id="weather-overview-title">
             <h3>${citySearched}</h3>
+            </div>
             `;
 
       weatherOverviewHeader.innerHTML = weatherOverviewContent;
@@ -110,6 +115,9 @@ var getCities = function (citySearched) {
 ////////////////////////
 
 var getWeatherData = function (lat, lon) {
+
+
+
   var weatherURL =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
     lat +
@@ -123,12 +131,19 @@ var getWeatherData = function (lat, lon) {
       return response.json();
     })
     .then(function (data) {
+
+      var weathericon = data.current.weather.icon;
+      var iconURL = "http://openweathermap.org/img/wn/"+ weathericon + "@2x.png";
+
+
       var weatherOverviewContent = `
-           
+           <div id="weather-overview-brief">
+           <img src="${iconURL}"/>
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
             <p>Humidity: ${data.current.humidity}%</p>
             <p>UV Index: ${data.current.uvi}</p>
+            </div>
             `;
 
       weatherOverviewInfo.innerHTML = weatherOverviewContent;
@@ -143,11 +158,13 @@ var getWeatherData = function (lat, lon) {
         var day = moment(data.daily[i].dt * 1000).format("L");
 
         weatherForecastCards += `
+              <div class="card-flex">
               <div class="forecast-cards">
-              <p>Date: ${day}</p>
-              <p>Temperature: ${data.daily[i].temp.day}°F</p>
+              <p class="day">${day}</p>
+              <p>Temp: ${data.daily[i].temp.day}°F</p>
               <p>Wind: ${data.daily[i].wind_speed} MPH</p>
               <p>Humidity: ${data.daily[i].humidity}%</p>
+              </div>
               </div>
               `;
 

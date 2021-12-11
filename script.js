@@ -67,7 +67,7 @@ var formSubmit = function (event) {
             }
 
             getCities(citySearched);
-            storedCities.innerHTML += storedCityName;    
+            storedCities.innerHTML = storedCityName;    
                      
 
             

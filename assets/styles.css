@@ -1,17 +1,143 @@
+body {
+    background-image: url("/assets/images/blue-sky-clouds-with-sun-rays.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+header {
+    text-align: center;
+    background-color: transparent;
+    color:white;
+    padding:20px 0;
+}
 main {
     display: flex;
+    flex-wrap: wrap;
+    margin: 40px;
+    gap: 50px;
 }
 #sidebar {
     flex:1;
+      
 }
 #weatherInfo {
     flex:3;
 }
+.sidebar-inner {
+    background-color:rgba(255, 255, 255, 0.336);
+    padding: 40px 20px;
+    border-radius: 15px;
+}
+h1 {
+    color: #e5bbae;
+}
+h2 {
+    color: #194d6c;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+#search-input {
+    border:none;
+    padding: 10px;
+    border-radius: 50px;
+    color: #00000020;
+}
+
 .forecast-cards {
     background: pink;
-    padding: 20px;
-    flex: 20%;
+    padding: 25px;
+    /* flex: 20%; */
 }
 #weather-forecast {
     display:flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+
+/* Buttons */
+
+.city-buttons {
+    width:100%;
+    background-color: #194d6c;
+    border:none;
+    color: #e5bbae;
+    border-radius:50px;
+    padding:10px;
+    margin:7px 0;
+    text-transform:capitalize;
+}
+
+.city-buttons:hover,
+.city-buttons:active {
+    background-color: #e5bbae;
+    color: #194d6c;
+}
+
+
+#storedCities {
+    padding-top: 30px;
+}
+.submit-button {
+    background-color: #e5bbae;
+    border:none;
+    color: #194d6c;
+    border-radius:50px;
+    padding:10px;
+}
+.submit-button:hover,
+.submit-button:active {
+    background-color: #194d6c;
+    color: #e5bbae;
+}
+.btn-primary:focus { 
+    background-color: #194d6c;
+    color: #e5bbae;
+}
+
+/* Weather Overview */
+#weather-overview-brief {
+    background-color: #194d6c;
+    color:#e5bbae;
+    border-radius:0 0 15px 15px;
+    padding: 30px; 
+    margin-bottom: 40px;
+}
+h3 {
+    font-size:50px;
+    text-transform: capitalize;
+}
+#weather-overview-title {
+    background-color: #194d6c;
+    color:#e5bbae;
+    border-radius: 15px 15px 0 0;
+    padding:30px 30px 0 30px;
+    margin-bottom: -8px;
+}
+
+/* Forecast Cards */
+.forecast-cards {
+    color: #194d6c;
+    background-color:#e5bbae;
+    border-radius: 15px;
+    box-shadow: 7px 7px 20px #0000002a;
+    line-height: 10px;
+}
+.day{
+    margin: 25px 0 40px 0;
+    font-size: 23px;
+    font-weight:700;
+    text-align:center;
+}
+
+@media screen and (max-width: 740px) {
+    main {
+        flex-direction: column;
+    }
+    .card-flex {
+        flex:100%;
+    }
 }
