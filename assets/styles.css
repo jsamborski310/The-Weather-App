@@ -48,7 +48,6 @@ h2 {
 .forecast-cards {
     background: pink;
     padding: 25px;
-    /* flex: 20%; */
 }
 #weather-forecast {
     display:flex;

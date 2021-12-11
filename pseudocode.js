@@ -10,10 +10,14 @@ var weatherForecast = document.getElementById("weather-forecast");
 var storedCities = document.getElementById("storedCities");
 var searched = document.getElementById("searchedButton");
 
+
+
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
 
 var weatherForecastCards = "";
+
+
 
 //////////////////////////////////////////
 // City Search Form
@@ -37,17 +41,19 @@ var formSubmit = function (event) {
     //   alert('Please enter a city name.');
   }
 };
-/////////////////////////////
 
-// Displays Stored Entries --------------------------
+//////////////////////////////
+// Displays Stored Entries
+
 var formSubmitButton = function (event) {
-  // event.preventDefault();
-
+  
   console.log("event: " + event);
 
   // Getting Storage
   var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked"));
 
+
+  // Printing if there are items stored.
   if (storedCitySearched) {
       storedCities.innerHTML="";
       
@@ -57,20 +63,13 @@ var formSubmitButton = function (event) {
       storedCityName.textContent = storedCitySearched[i];
       storedCityName.addEventListener("click", function () {
 
-        console.log(storedCityName.textContent);
         getCities(storedCityName.textContent);
       });
       
-
-    //   const cityName = event.target.getAttribute("data-cities");
       storedCities.append(storedCityName);
 
-    //   console.log("city name: " + cityName);
     }
 
-    // getCities(citySearched);
-    // storedCities.innerHTML += storedCityName;
-    // document.getElementById(citySearched).addEventListener("click", function(){getCities(citySearched)});
   }
 };
 
@@ -91,8 +90,6 @@ var getCities = function (citySearched) {
     .then(function (data) {
       //Add if/else statement here. If name=citySearched, the do this, otherwise, print an error message.
 
-      // name = citySearched;
-
       lon = data.coord.lon;
       lat = data.coord.lat;
 
@@ -109,22 +106,15 @@ var getCities = function (citySearched) {
       getWeatherData(lat, lon);
     });
 
-  ////////////////////////
 };
 
-////////////////////////
+//////////////////////////////
+// Getting Weather Data, and Printing it.
 
 var getWeatherData = function (lat, lon) {
 
-
-
   var weatherURL =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&units=imperial&appid=" +
-    APIKey;
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "units=imperial&appid=" + APIKey;
 
   fetch(weatherURL)
     .then(function (response) {
@@ -132,13 +122,9 @@ var getWeatherData = function (lat, lon) {
     })
     .then(function (data) {
 
-      var weathericon = data.current.weather.icon;
-      var iconURL = "http://openweathermap.org/img/wn/"+ weathericon + "@2x.png";
-
-
+    
       var weatherOverviewContent = `
            <div id="weather-overview-brief">
-           <img src="${iconURL}"/>
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
             <p>Humidity: ${data.current.humidity}%</p>
@@ -148,7 +134,7 @@ var getWeatherData = function (lat, lon) {
 
       weatherOverviewInfo.innerHTML = weatherOverviewContent;
 
-      ////////////////////
+      // 5-day Forecast Cards ------->
 
       for (var i = 0; i < data.daily.length; i++) {
         if (i === 5) {
@@ -189,4 +175,3 @@ function storeCitySearched(citySearched) {
 // Form Submission
 searchForm.addEventListener("submit", formSubmit);
 
-// cityName.addEventListener('click', formSubmitButton);
