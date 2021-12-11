@@ -114,7 +114,7 @@ var getCities = function (citySearched) {
 var getWeatherData = function (lat, lon) {
 
   var weatherURL =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "units=imperial&appid=" + APIKey;
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + APIKey;
 
   fetch(weatherURL)
     .then(function (response) {
