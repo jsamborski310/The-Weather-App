@@ -139,6 +139,7 @@ var getWeatherData = function (lat, lon) {
         if (i === 5) {
           break;
         }
+        
 
         // Setting up icon for daily weather.
         var dailyWeatherIcon = data.daily[i].weather[0].icon;
@@ -162,31 +163,39 @@ var getWeatherData = function (lat, lon) {
               </div>
               `;
 
-            
-
+              uviStatus();
+              
         weatherForecast.innerHTML = weatherForecastCards;
+       
       }
+
       weatherForecastCards = "";
 
-      
-      
-      // UV Index Status
-
-      uviStatus = document.getElementById("uvi-status");
-
-      if(dataset.uvi >= 0 && dataset.uvi <= 2) {
-        uviStatus.setAttribute("style", "background-color:black;");
-      }
-      else if(dataset.uvi >= 3 && dataset.uvi <= 5) {
-        uviStatus.setAttribute("style", "background-color:orange;");
-      }
-      else {
-        uviStatus.setAttribute("style", "background-color:white;");
-      }
-      console.log(dataset.uvi);
-
     });
+
+ 
 };
+
+
+//////////////////////////
+// UV Index Status
+
+function uviStatus() {
+     
+     uviStatusElement = document.getElementById("uvi-status");
+
+     if(dataset.uvi >= 0 && dataset.uvi <= 2) {
+      uviStatusElement.setAttribute("style", "background-color:black;");
+     }
+     else if(dataset.uvi >= 3 && dataset.uvi <= 5) {
+      uviStatusElement.setAttribute("style", "background-color:orange;");
+     }
+     else {
+      uviStatusElement.setAttribute("style", "background-color:white;");
+     }
+     console.log(dataset.uvi[i]);
+}
+
 
 //////////////////////////
 // Saving Cities Searched
