@@ -10,16 +10,10 @@ var weatherForecast = document.getElementById("weather-forecast");
 var storedCities = document.getElementById("storedCities");
 var searched = document.getElementById("searchedButton");
 
-
+var uviStatus;
 
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
-
-// const icon = `https://openweathermap.org/img/wn/${weather[0]["icon"]}@2x.png`;
-
-
-
-
 
 var weatherForecastCards = "";
 
@@ -44,7 +38,7 @@ var formSubmit = function (event) {
 
     formSubmitButton(event);
   } else {
-    //   alert('Please enter a city name.');
+     console.log("Invalid input.");
   }
 };
 
@@ -53,8 +47,6 @@ var formSubmit = function (event) {
 
 var formSubmitButton = function (event) {
   
-  console.log("event: " + event);
-
   // Getting Storage
   var storedCitySearched = JSON.parse(localStorage.getItem("city-clicked"));
 
@@ -83,31 +75,17 @@ var formSubmitButton = function (event) {
 // Getting City Data
 
 var getCities = function (citySearched) {
-  var cityURL =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    citySearched +
-    "&units=imperial&appid=" +
-    APIKey;
+
+  var cityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearched + "&units=imperial&appid=" + APIKey;
 
   fetch(cityURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      //Add if/else statement here. If name=citySearched, the do this, otherwise, print an error message.
-
+      
       lon = data.coord.lon;
       lat = data.coord.lat;
-
-     
-
-      var weatherOverviewContent = `
-            <div id="weather-overview-title">
-            <h3>${citySearched}</h3>
-            </div>
-            `;
-
-      weatherOverviewHeader.innerHTML = weatherOverviewContent;
 
       getWeatherData(lat, lon);
     });
@@ -128,13 +106,24 @@ var getWeatherData = function (lat, lon) {
     })
     .then(function (data) {
 
-
-      var iconURL = "https://openweathermap.org/img/wn/" + weatherIcon + ".png";
+      // Setting up icon for current weather.
       var weatherIcon = data.current.weather[0].icon;
+      var iconURL = "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png";
+
+
+      // Displaying City Name and Current Weather icon
+      var weatherOverviewContent = `
+            <div id="weather-overview-title">
+            <h3>${citySearched}</h3>
+            <img class="weather-icon" src="${iconURL}" alt="current weather icon"/>
+            </div>
+            `;
+
+      weatherOverviewHeader.innerHTML = weatherOverviewContent;
     
+      // Displaying Current Weather
       var weatherOverviewContent = `
            <div id="weather-overview-brief">
-           <img src=${iconURL}/>
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
             <p>Humidity: ${data.current.humidity}%</p>
@@ -144,29 +133,58 @@ var getWeatherData = function (lat, lon) {
 
       weatherOverviewInfo.innerHTML = weatherOverviewContent;
 
-      // 5-day Forecast Cards ------->
+      // 5-day Forecast Cards 
 
       for (var i = 0; i < data.daily.length; i++) {
         if (i === 5) {
           break;
         }
 
-        var day = moment(data.daily[i].dt * 1000).format("L");
+        // Setting up icon for daily weather.
+        var dailyWeatherIcon = data.daily[i].weather[0].icon;
+        var dailyIconURL = "https://openweathermap.org/img/wn/" + dailyWeatherIcon + "@2x.png";
 
+
+        // Formatting date
+        var day = moment(data.daily[i].dt * 1000).format("ll");
+
+        // Displaying 5-day weather forecast
         weatherForecastCards += `
               <div class="card-flex">
               <div class="forecast-cards">
+              <img class="daily-forecast-icon" src="${dailyIconURL}" alt="current weather icon"/>
               <p class="day">${day}</p>
               <p>Temp: ${data.daily[i].temp.day}°F</p>
               <p>Wind: ${data.daily[i].wind_speed} MPH</p>
               <p>Humidity: ${data.daily[i].humidity}%</p>
+              <p>UVI: <span data-uvi="${data.daily[i].uvi}" id="uvi-status">${data.daily[i].uvi}</span></p>
               </div>
               </div>
               `;
 
+            
+
         weatherForecast.innerHTML = weatherForecastCards;
       }
       weatherForecastCards = "";
+
+      
+      
+      // UV Index Status
+
+      uviStatus = document.getElementById("uvi-status");
+
+      if(dataset.uvi >= 0 && dataset.uvi <= 2) {
+        uviStatus.setAttribute("style", "background-color:black;");
+      }
+      else if(dataset.uvi >= 3 && dataset.uvi <= 5) {
+        uviStatus.setAttribute("style", "background-color:orange;");
+      }
+      else {
+        uviStatus.setAttribute("style", "background-color:white;");
+      }
+      console.log(dataset.uvi);
+
     });
 };
 

@@ -12,6 +12,9 @@ header {
     color:white;
     padding:20px 0;
 }
+
+/* Layout */
+
 main {
     display: flex;
     flex-wrap: wrap;
@@ -25,11 +28,12 @@ main {
 #weatherInfo {
     flex:3;
 }
-.sidebar-inner {
-    background-color:rgba(255, 255, 255, 0.336);
-    padding: 40px 20px;
-    border-radius: 15px;
+#storedCities {
+    padding-top: 30px;
 }
+
+
+/* Headings */
 h1 {
     color: #e5bbae;
 }
@@ -38,23 +42,20 @@ h2 {
     font-size: 25px;
     padding-bottom: 10px;
 }
+
+/* Search Box. Left Sidebar. */
+.sidebar-inner {
+    background-color:rgba(255, 255, 255, 0.336);
+    padding: 40px 20px;
+    border-radius: 15px;
+}
+
 #search-input {
     border:none;
     padding: 10px;
     border-radius: 50px;
     color: #00000020;
 }
-
-.forecast-cards {
-    background: pink;
-    padding: 25px;
-}
-#weather-forecast {
-    display:flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
 
 
 /* Buttons */
@@ -76,10 +77,6 @@ h2 {
     color: #194d6c;
 }
 
-
-#storedCities {
-    padding-top: 30px;
-}
 .submit-button {
     background-color: #e5bbae;
     border:none;
@@ -114,7 +111,11 @@ h3 {
     color:#e5bbae;
     border-radius: 15px 15px 0 0;
     padding:30px 30px 0 30px;
-    margin-bottom: -8px;
+    display:flex;
+    justify-content: space-between;
+}
+.weather-icon {
+   margin-top: -20px;
 }
 
 /* Forecast Cards */
@@ -124,19 +125,29 @@ h3 {
     border-radius: 15px;
     box-shadow: 7px 7px 20px #0000002a;
     line-height: 10px;
+    padding: 25px;
+}
+
+#weather-forecast {
+    display:flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 .day{
     margin: 25px 0 40px 0;
-    font-size: 23px;
+    font-size: 18px;
     font-weight:700;
-    text-align:center;
+    
 }
+
+
+/* Media Queries */
 
 @media screen and (max-width: 740px) {
     main {
         flex-direction: column;
     }
     .card-flex {
-        flex:100%;
+        flex:45px;
     }
 }
