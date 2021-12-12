@@ -15,6 +15,12 @@ var searched = document.getElementById("searchedButton");
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
 
+// const icon = `https://openweathermap.org/img/wn/${weather[0]["icon"]}@2x.png`;
+
+
+
+
+
 var weatherForecastCards = "";
 
 
@@ -122,9 +128,13 @@ var getWeatherData = function (lat, lon) {
     })
     .then(function (data) {
 
+
+      var iconURL = "https://openweathermap.org/img/wn/" + weatherIcon + ".png";
+      var weatherIcon = data.current.weather[0].icon;
     
       var weatherOverviewContent = `
            <div id="weather-overview-brief">
+           <img src=${iconURL}/>
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
             <p>Humidity: ${data.current.humidity}%</p>
