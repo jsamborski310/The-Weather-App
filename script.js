@@ -10,6 +10,8 @@ var weatherForecast = document.getElementById("weather-forecast");
 var storedCities = document.getElementById("storedCities");
 var searched = document.getElementById("searchedButton");
 
+// var dataAttribute = element.getAttribute('data-uvi');
+
 var uviStatus;
 
 var citySearched;
@@ -95,6 +97,9 @@ var getCities = function (citySearched) {
 //////////////////////////////
 // Getting Weather Data, and Printing it.
 
+
+
+
 var getWeatherData = function (lat, lon) {
 
   var weatherURL =
@@ -149,6 +154,7 @@ var getWeatherData = function (lat, lon) {
         // Formatting date
         var day = moment(data.daily[i].dt * 1000).format("ll");
 
+        
         // Displaying 5-day weather forecast
         weatherForecastCards += `
               <div class="card-flex">
@@ -158,22 +164,38 @@ var getWeatherData = function (lat, lon) {
               <p>Temp: ${data.daily[i].temp.day}°F</p>
               <p>Wind: ${data.daily[i].wind_speed} MPH</p>
               <p>Humidity: ${data.daily[i].humidity}%</p>
-              <p>UVI: <span data-uvi="${data.daily[i].uvi}" id="uvi-status">${data.daily[i].uvi}</span></p>
+              <p data-uvi="${data.daily[i].uvi}" id="uvi-status">UVI: ${data.daily[i].uvi}</p>
               </div>
               </div>
               `;
 
+              
               uviStatus();
               
         weatherForecast.innerHTML = weatherForecastCards;
-       
+        
       }
 
+      
       weatherForecastCards = "";
-
+      
     });
 
  
+
+    // uviStatusElement = document.getElementById("uvi-status");
+
+    // if(dataAttribute >= 0 && dataAttribute <= 2) {
+    //  uviStatusElement.setAttribute("style", "background-color:black;");
+    // }
+    // else if(dataAttribute >= 3 && dataAttribute <= 5) {
+    //  uviStatusElement.setAttribute("style", "background-color:orange;");
+    // }
+    // else {
+    //  uviStatusElement.setAttribute("style", "background-color:white;");
+    
+  //  }
+
 };
 
 
@@ -181,19 +203,21 @@ var getWeatherData = function (lat, lon) {
 // UV Index Status
 
 function uviStatus() {
+
+ 
      
      uviStatusElement = document.getElementById("uvi-status");
+     console.log("uviStatusElement: " + uviStatusElement);
 
-     if(dataset.uvi >= 0 && dataset.uvi <= 2) {
+     if(uviStatusElement.dataset.uvi >= 0 && uviStatusElement.dataset.uvi <= 2) {
       uviStatusElement.setAttribute("style", "background-color:black;");
      }
-     else if(dataset.uvi >= 3 && dataset.uvi <= 5) {
+     else if(uviStatusElement.dataset.uvi >= 3 && uviStatusElement.dataset.uvi <= 5) {
       uviStatusElement.setAttribute("style", "background-color:orange;");
      }
      else {
       uviStatusElement.setAttribute("style", "background-color:white;");
      }
-     console.log(dataset.uvi[i]);
 }
 
 
