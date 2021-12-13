@@ -12,7 +12,7 @@ var searched = document.getElementById("searchedButton");
 
 // var dataAttribute = element.getAttribute('data-uvi');
 
-var uviStatus;
+var uviStatusElement;
 var currentUviStatus;
 
 var citySearched;

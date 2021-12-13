@@ -7,7 +7,7 @@ Program a weather application so that a traveler may view weather information fo
 
 ## The Project
 
-The weather app was built using the tools listed below. An API was utlized in order to obtained weather information from cities around the world. This information includes the current weather as well as the 5 day forecast. The travler will be informed of the temperature, wind, humidity, and uv index. Weather icons make it easy for the traveler to understand weather conditions at a glance. Background colors on uv index visually alert the traveler of the risk of uv exposure, ranging from low to extreme, so they may protect themself.
+The mobile responsive weather app was built using the tools listed below. An API was utlized in order to obtained weather information from cities around the world. This information includes the current weather as well as the 5 day forecast. The travler will be informed of the temperature, wind, humidity, and uv index. Weather icons make it easy for the traveler to understand weather conditions at a glance. Background colors on uv index visually alert the traveler of the risk of uv exposure, ranging from low to extreme, so they may protect themself.
 
 When a travler searches for a city, the application stores all of the previous cities searched so they can easily navigate back and forth when working thorugh a travel plan. 
  
@@ -87,13 +87,14 @@ Here's a live screencast of the daily planner in action:
 https://www.loom.com/share/dd88f8fd3a0d42ce8f6662433dbc6e04
 
 
-###### Daily Planner
+###### Weather App
 
 
-![Screen shot of the daily planner.](Assets/images/Daily-Planner.png)
+![Screen shot of the weather app prior to search entry.](assets/images/weather-app-presearch.png)
 
 
-###### Daily Planner with Plans
+
+###### Weather App in Action
 
 
-![Screen shot of the daily planner with plans.](Assets/images/Daily-Planner-With-Plans.png)
+![Screen shot of the weather app with search history.](assets/images/weather-app-with-search.png)
