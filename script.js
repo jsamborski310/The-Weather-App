@@ -10,8 +10,6 @@ var weatherForecast = document.getElementById("weather-forecast");
 var storedCities = document.getElementById("storedCities");
 var searched = document.getElementById("searchedButton");
 
-// var dataAttribute = element.getAttribute('data-uvi');
-
 var uviStatusElement;
 var currentUviStatus;
 
@@ -99,8 +97,6 @@ var getCities = function (citySearched) {
 // Getting Weather Data, and Printing it.
 
 
-
-
 var getWeatherData = function (lat, lon) {
 
   var weatherURL =
@@ -140,7 +136,6 @@ var getWeatherData = function (lat, lon) {
       weatherOverviewInfo.innerHTML = weatherOverviewContent;
 
       // 5-day Forecast Cards 
-
       for (var i = 0; i < data.daily.length; i++) {
         if (i === 5) {
           break;
@@ -188,8 +183,6 @@ var getWeatherData = function (lat, lon) {
 // UV Index Status
 
 function uviStatus() {
-
- 
      
      uviStatusElement = document.querySelectorAll(".uvi-status");
 
