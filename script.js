@@ -13,6 +13,7 @@ var searched = document.getElementById("searchedButton");
 // var dataAttribute = element.getAttribute('data-uvi');
 
 var uviStatus;
+var currentUviStatus;
 
 var citySearched;
 var APIKey = "33e3e07579a24a43082a28f667d64818";
@@ -132,7 +133,7 @@ var getWeatherData = function (lat, lon) {
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Wind: ${data.current.wind_speed} MPH</p>
             <p>Humidity: ${data.current.humidity}%</p>
-            <p>UV Index: ${data.current.uvi}</p>
+            <p>UV Index: <span class="current-uvi-status" data-cuvi="${data.current.uvi}">${data.current.uvi}</span></p>
             </div>
             `;
 
@@ -164,37 +165,21 @@ var getWeatherData = function (lat, lon) {
               <p>Temp: ${data.daily[i].temp.day}°F</p>
               <p>Wind: ${data.daily[i].wind_speed} MPH</p>
               <p>Humidity: ${data.daily[i].humidity}%</p>
-              <p data-uvi="${data.daily[i].uvi}" id="uvi-status">UVI: ${data.daily[i].uvi}</p>
+              <p>UVI: <span class="uvi-status" data-uvi="${data.daily[i].uvi}">${data.daily[i].uvi}</span></p>
               </div>
               </div>
               `;
 
               
-              uviStatus();
-              
         weatherForecast.innerHTML = weatherForecastCards;
         
       }
-
       
       weatherForecastCards = "";
-      
+      uviStatus();
+      uviStatusCurrent();
     });
 
- 
-
-    // uviStatusElement = document.getElementById("uvi-status");
-
-    // if(dataAttribute >= 0 && dataAttribute <= 2) {
-    //  uviStatusElement.setAttribute("style", "background-color:black;");
-    // }
-    // else if(dataAttribute >= 3 && dataAttribute <= 5) {
-    //  uviStatusElement.setAttribute("style", "background-color:orange;");
-    // }
-    // else {
-    //  uviStatusElement.setAttribute("style", "background-color:white;");
-    
-  //  }
 
 };
 
@@ -206,20 +191,53 @@ function uviStatus() {
 
  
      
-     uviStatusElement = document.getElementById("uvi-status");
-     console.log("uviStatusElement: " + uviStatusElement);
+     uviStatusElement = document.querySelectorAll(".uvi-status");
 
-     if(uviStatusElement.dataset.uvi >= 0 && uviStatusElement.dataset.uvi <= 2) {
-      uviStatusElement.setAttribute("style", "background-color:black;");
+     uviStatusElement.forEach((uviStatusElement) => {
+    
+
+     if(uviStatusElement.dataset.uvi >= 0 && uviStatusElement.dataset.uvi <= 2.99) {
+      uviStatusElement.setAttribute("style", "color: white; background-color:#92BFB1;padding: 5px; border-radius:5px;");
      }
-     else if(uviStatusElement.dataset.uvi >= 3 && uviStatusElement.dataset.uvi <= 5) {
-      uviStatusElement.setAttribute("style", "background-color:orange;");
+     else if(uviStatusElement.dataset.uvi >= 3 && uviStatusElement.dataset.uvi <= 5.99) {
+      uviStatusElement.setAttribute("style", "background-color:#F5E960; padding: 3px 5px; border-radius:5px;");
+     }
+     else if(uviStatusElement.dataset.uvi >= 6 && uviStatusElement.dataset.uvi <= 7.99) {
+      uviStatusElement.setAttribute("style", "color: white; background-color:#cd6531; padding: 5px; border-radius:5px;");
      }
      else {
-      uviStatusElement.setAttribute("style", "background-color:white;");
+      uviStatusElement.setAttribute("style", "color: white; background-color:#D72638; padding: 5px; border-radius:5px;");
      }
+
+    });
 }
 
+
+
+//////////////////////////
+//Current UVI Status
+
+function uviStatusCurrent() {
+
+  currentUviStatus = document.querySelectorAll(".current-uvi-status");
+
+  currentUviStatus.forEach((currentUviStatus) => {
+
+  if(currentUviStatus.dataset.cuvi >= 0 && currentUviStatus.dataset.cuvi <= 2.99) {
+    currentUviStatus.setAttribute("style", "color: white; background-color:#92BFB1;padding: 5px; border-radius:5px;");
+   }
+   else if(currentUviStatus.dataset.cuvi >= 3 && currentUviStatus.dataset.cuvi <= 5.99) {
+    currentUviStatus.setAttribute("style", "background-color:#F5E960; padding: 3px 5px; border-radius:5px;");
+   }
+   else if(currentUviStatus.dataset.cuvi >= 6 && currentUviStatus.dataset.cuvi <= 7.99) {
+    currentUviStatus.setAttribute("style", "color: white; background-color:#cd6531; padding: 5px; border-radius:5px;");
+   }
+   else {
+    currentUviStatus.setAttribute("style", "color: white; background-color:#D72638; padding: 5px; border-radius:5px;");
+   }
+
+  });
+}
 
 //////////////////////////
 // Saving Cities Searched
