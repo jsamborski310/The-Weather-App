@@ -82,9 +82,9 @@ GitHub Pages: https://jsamborski310.github.io/The-Weather-App/
 
 ## The Preview
 
-Here's a live screencast of the daily planner in action: 
+Here's a live screencast of the weather app in action: 
 
-https://www.loom.com/share/dd88f8fd3a0d42ce8f6662433dbc6e04
+https://www.loom.com/share/685a8d815ae443c18654c5fb8172962f
 
 
 ###### Weather App
