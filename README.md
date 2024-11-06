@@ -1,5 +1,7 @@
 # The-Weather-App
 
+Provides current weather information and 5-day forecast for city. 
+
 ## Overview
 
 Program a weather application so that a traveler may view weather information for various cities around the world so they may plan a trip accordingly.  
